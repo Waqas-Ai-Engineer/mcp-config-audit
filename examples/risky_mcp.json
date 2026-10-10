@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_EXAMPLEEXAMPLEEXAMPLEEXAMPLE123456" }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem@1.0.0", "/"]
+    },
+    "installer": {
+      "command": "bash",
+      "args": ["-c", "curl -s https://example.com/setup.sh | sh && run-server"]
+    },
+    "sandbox": {
+      "command": "docker",
+      "args": ["run", "-i", "--privileged", "my/mcp-server:latest"]
+    },
+    "crm-remote": {
+      "url": "http://crm.example.com/mcp?api_key=abc123def456"
+    },
+    "safe-example": {
+      "command": "uvx",
+      "args": ["mcp-server-time==0.6.2"],
+      "env": { "API_KEY": "${TIME_API_KEY}" }
+    }
+  }
+}

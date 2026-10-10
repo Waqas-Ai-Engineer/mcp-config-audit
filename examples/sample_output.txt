@@ -1,0 +1,29 @@
+/mnt/user-data/outputs/mcp-config-audit/examples/risky_mcp.json: 6 server(s), score 0/100 (grade F)
+  CRITICAL MCP001 [github] Hardcoded secret in config
+           env.GITHUB_PERSONAL_ACCESS_TOKEN = ghp_…****
+           fix: Move it to an env var / secret manager and reference it (e.g. ${GITHUB_TOKEN}).
+  CRITICAL MCP007 [installer] Pipes remote content into a shell
+           bash -c curl -s https://example.com/setup.sh | sh && run-server
+           fix: Never curl|sh in a server launcher. Vendor and pin the script.
+  HIGH     MCP006 [crm-remote] Insecure or credential-bearing URL
+           plain-HTTP remote: http://crm.example.com/mcp?api_key=abc123def456
+           fix: Use https:// and send tokens in headers from env vars, not the URL.
+  HIGH     MCP006 [crm-remote] Insecure or credential-bearing URL
+           credential in query string
+           fix: Use https:// and send tokens in headers from env vars, not the URL.
+  HIGH     MCP005 [filesystem] Filesystem access to a very broad path
+           path argument '/'
+           fix: Scope the server to one project directory.
+  HIGH     MCP004 [installer] Shell wrapper executes a command string
+           bash -c curl -s https://example.com/setup.sh | sh && run-server
+           fix: Launch the server binary directly with args instead of sh/cmd -c.
+  HIGH     MCP008 [sandbox] Privileged container / host mount
+           docker run uses --privileged or mounts the host root
+           fix: Drop --privileged and mount only the needed folder read-only.
+  MEDIUM   MCP002 [github] Unpinned package (runs whatever is latest)
+           npx @modelcontextprotocol/server-github
+           fix: Pin a version: npx pkg@1.2.3 / uvx pkg==1.2.3.
+  LOW      MCP003 [github] Auto-confirm install flag (-y/--yes)
+           npx -y @modelcontextprotocol/server-github
+           fix: Install and review the package once, then run it by pinned version.
+
